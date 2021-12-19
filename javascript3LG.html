@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="myText" value="Treść paragrafu...">
+    <button onclick="textBox()">Dodaj</button>
+</body>
+
+
+<script>
+    let pID = 0;
+    let hID = 0;
+    let dID = 0;
+    let d0ID = 0;
+
+    create();
+    create();
+    create();
+    create();
+
+    function textBox() { 
+        var x = document.getElementById("myText").value;
+        userCreate(x);
+        }
+    function setColor() {
+        var colors = ["green", "blue", "red", "black", "orange", "pink"];
+        var ar = document.getElementsByTagName("p");
+        for (var i = 0; i < ar.length; i++) {
+            const randomElement = colors[Math.floor(Math.random() * colors.length)]
+            ar[i].style.color = randomElement;
+        }
+      
+    }
+    function setTitle() {
+        var ar = document.getElementsByTagName("p");
+        for (var i = 0; i < ar.length; i++) {
+            var a = ar[i].innerHTML.length;
+            ar[i].title = "ilosc znakow to: " + a;
+
+        }
+
+    }
+    function create(){
+        var teksty = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "Pellentesque ac nisi quis nulla consequat tempor sed sit amet enim.",
+            "Quisque ornare ex arcu, ultrices commodo risus mattis eget.",
+            "Morbi id augue pharetra, pretium diam vel, sollicitudin magna."
+        ]
+        var div = document.createElement('div');
+        div.id = "d0ID" + d0ID;
+        d0ID++;
+        document.body.appendChild(div);
+        var h1 = document.createElement('h1');
+        h1.id = "hID" + hID;
+        h1.innerHTML = "NAGŁÓWEK " + hID;
+        hID++;
+        div.appendChild(h1);
+        var d = document.createElement('div');
+        d.id = "dID" + dID;
+        dID++;
+        div.appendChild(d); 
+        var p = document.createElement('p');
+        p.id = "pID" + pID;
+        p.innerHTML = teksty[pID];
+        pID++;
+        p.style.fontSize = "15px";
+        p.style.visibility = "visible"
+        p.style.fontWeight = "normal";
+        d.appendChild(p); 
+        setColor();
+        setTitle();
+        initAll();
+        initAllHide();
+    }
+    function userCreate(x)
+    {
+        var div = document.createElement('div');
+        div.id = "d0ID" +d0ID;
+        d0ID++;
+        document.body.appendChild(div);
+        var h1 = document.createElement('h1');
+        h1.innerHTML = "nagłówek";
+        h1.id = "hID" + hID;
+        h1.innerHTML = "NAGŁÓWEK " + hID;
+        hID++;
+        div.appendChild(h1);
+        var d = document.createElement('div');
+        d.id = "dID" + dID;
+        dID++;
+        div.appendChild(d); 
+        var p = document.createElement('p');
+        p.id = "pID" + pID;
+        p.innerHTML = x;
+        pID++;
+        p.style.fontSize = "15px";
+        p.style.visibility = "visible"
+        p.style.fontWeight = "normal";
+        d.appendChild(p); 
+        setColor();
+        setTitle();
+        initAll();
+        initAllHide();
+    }
+    function myFunction(id) {
+
+        reset();
+        var pars = document.getElementsByTagName("p");
+        var selector = document.getElementById(id);
+        try{
+            for(var i = 0; i<pars.length; i++){
+                if(pars[i]==selector && i%2==0)
+                {
+                var current = pars[i];
+                var next = pars[i+1];
+                var previous = pars[i-1];
+                current.style.border = "2px solid green";
+                current.style.backgroundColor = "#D3D3D3";
+                next.style.border = "2px solid blue";
+                previous.style.border = "2px solid orange";
+            }
+                else if(pars[i]==selector && i%2!=0)
+                {
+                var current = pars[i];
+                var next = pars[i+1];
+                var previous = pars[i-1];
+                current.style.border = "2px solid green";
+                current.style.backgroundColor = "#696969";
+                next.style.border = "2px solid blue";
+                previous.style.border = "2px solid orange";
+                }
+            }
+        }
+        catch(err)
+        {
+            previous.style.border = "2px solid orange";
+        }
+    }
+    function hide(id)
+    {
+        var a = document.getElementById(id);
+        
+        if (a.style.display === "none") {
+            a.style.display = "block";
+        } else {
+            a.style.display = "none";
+        }
+
+    }
+    function reset()
+    {
+        var elements = document.getElementsByTagName('p');
+        var n;
+        for (n = 0; n < elements.length; ++n) {
+
+            elements[n].style.border = "";
+            elements[n].style.backgroundColor = "";
+
+        }
+    }
+    function initAll() {
+        var elements = document.getElementsByTagName('p');
+        var n;
+        for (n = 0; n < elements.length; ++n) {
+            elements[n].setAttribute("onclick", "myFunction('pID" + (n) + "')");
+        }
+
+    }
+    function initAllHide() {
+        var elements = document.getElementsByTagName('h1');
+        var n;
+        for (n = 0; n < elements.length; ++n) {
+            elements[n].setAttribute("onclick", "hide('dID" + (n) + "')");
+        }
+
+    }
+
+</script>
+
+</html>
